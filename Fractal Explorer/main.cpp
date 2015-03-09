@@ -1,8 +1,13 @@
 #include "display.h"
-#include <thread>
+#include "mandelbrot.h"
+#include "julia.h"
 
 
-using std::thread;
+
+
+sf::Uint8 computedImage[WIDTH * HEIGHT * 4];
+mutex iterationLock;//ensures itterations dont change until calculation copmplete
+int maxIterations = 200;
 
 int main()
 {
@@ -10,5 +15,8 @@ int main()
 
 	testWindow.startThread();
 
+	//windowThread.join();
+
 	return 0;
 }
+
