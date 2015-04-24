@@ -6,12 +6,7 @@
 class julia : public fractalCreator
 {
 public:
-	void startGeneration();
-
-private:
-
-
-	void calculateSet(int sliceStart, int sliceEnd);
+	void calculateSet(int sliceStart, float zoomLevel, float xOffset, float yOffset, int itrCheck);
 };
 
 #endif

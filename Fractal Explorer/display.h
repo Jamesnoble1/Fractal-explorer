@@ -1,10 +1,13 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
-#include <iostream>
+
 #include "globals.h"
+#include "display_defines.h"
+#include "generationManager.h"
 #include "mandelbrot.h"
 #include "julia.h"
+#include "barrier.h"
 #include <SFML/Graphics.hpp>
 #include <SFML\Window\Event.hpp>
 #include <SFML\Graphics\Font.hpp>
@@ -12,41 +15,50 @@
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Graphics\Texture.hpp>
 #include <sstream>
+#include <iostream>
+#include <vector>
 
-const int MENU_OPTIONS = 6;
+using std::vector;
 
-enum programState {MENU, DRAWING, EXIT, IT_CHANGE};
-enum setToProcess {NONE, UPDATE, MANDELBROT, JULIA}; //can be expanded for additional sets
+
+
+
+enum currentSet {NONE, MANDELBROT, JULIA};
+
 
 class windowDisplay
 {
 public:
 	windowDisplay();
 	~windowDisplay();
-	void startThread();
+	void startProgram();
 
 private:
 	sf::RenderWindow window;
 	sf::Event eventHandler;
 	sf::Font displayFont;
-	sf::Text waitText, currentInput, itrTitle;
+	sf::Text waitText, currentInput, itrTitle, juliaTitle;
 	sf::Text menuText[MENU_OPTIONS];
-	sf::Text exitText[2];
-	sf::String itrInput;
+	sf::Text exitText[EXIT_LINES];
+	sf::String itrInput, juliaInput[JULIA_LINES];
 	sf::String menuString[MENU_OPTIONS];
-	sf::Sprite testSprite;
-	sf::Texture testTex;
+	sf::Sprite displaySprite;
+	sf::Texture displayTex;
 	julia juliaSet;
 	mandelbrot mandelbrotSet;
-	programState currentState;
-	setToProcess currentSet;
+	currentSet currentSet;
 	thread * generateSet;
-
-	bool isRunning = true;
+	vector<thread> generationThreads;
+	generationManager threadManager;
+	barrier generationBarrier;
+	void setUpdate();
+	int juliaInputStage;
+	bool showMenu, confirmExit, changeIterations, changeJuliaConstant;
 	bool setGenerated = false;
 	void updateWindow();
 	void processEvent(); //processes window and input events
 	void updateSpirte(); //updates sprite texture once new image has been generated
+
 };
 
 #endif

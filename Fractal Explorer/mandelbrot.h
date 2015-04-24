@@ -3,17 +3,14 @@
 
 #include "fractalCreator.h"
 
-
-
 class mandelbrot : public fractalCreator
 {
 public:
-	void startGeneration();
+	void calculateSet(int sliceStart, float zoomLevel, float xOffset, float yOffset, int itrCheck);
 
 private:
+	const float CENTER_OFFSET = -0.5f;
 	
-
-	void calculateSet(int sliceStart, int sliceEnd);
 };
 
 #endif

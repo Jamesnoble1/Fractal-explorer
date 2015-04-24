@@ -1,0 +1,16 @@
+#ifndef FRACTAL_CONSTANTS_H
+#define FRACTAL_CONSTANTS_H
+
+#define FULL 512
+#define HALF 256
+
+#define PALLETTE_ENTRIES  500
+#define COLOUR_STEP  5
+#define RED_CHECK (HALF / COLOUR_STEP)
+#define GREEN_CHECK  (FULL / COLOUR_STEP)
+#define IMAGE_ARRAY_OFFSET 4
+
+#define BLACK 0x00
+#define OPAQUE 0xff
+
+#endif

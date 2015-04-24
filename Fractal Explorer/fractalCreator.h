@@ -2,16 +2,8 @@
 #define FRACTAL_CREATOR_H
 
 #include "globals.h"
-#include <complex>
-#include <vector>
+#include "fractal_constants.h"
 
-using std::complex;
-using std::vector;
-
-const int palletteEntries = 500;
-const int colourStep = 10;
-const int redCheck = 256 / colourStep;
-const int greenCheck = 512 / colourStep;
 
 //struct to hold colour values
 struct colourPallette
@@ -23,16 +15,13 @@ struct colourPallette
 
 class fractalCreator
 {
-
 public:
 	fractalCreator();
-	//virtual void startGeneration();
+	virtual void calculateSet(int sliceStart, float zoomLevel, float xOffset, float yOffset, int itrCheck) = 0;
 
 protected:
-	colourPallette colourPallette[palletteEntries];
+	colourPallette colourPallette[PALLETTE_ENTRIES];
 	void writeTexture(int xPos, int yPos, int iterations);
-private:
-
 };
 
 #endif
